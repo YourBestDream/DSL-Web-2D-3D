@@ -4,9 +4,40 @@ from ANTLR_Generated.DSL_2D_3DParser import DSL_2D_3DParser
 from ANTLR_Generated.DSL_2D_3DListener import DSL_2D_3DListener  # Make sure this import is correct
 
 input_str = """ 
-Object myObject = Generate Cuboid {
-     X-axis = 50, Y-axis = 30, Z-axis = 20
-};"""
+myOrb = Orb {
+    Diameter = 10,
+    XAxis = 20,
+    YAxis = 30,
+    ZAxis = 40
+};
+
+myCube = Cube {
+    Width = 5,
+    Height = 5,
+    Depth = 5,
+    XAxis = 15,
+    YAxis = 25,
+    ZAxis = 35
+};
+
+myRectangle = Rectangle {
+    Width = 20,
+    Height = 10,
+    XAxis = 5,
+    YAxis = 10
+};
+
+myCircle = Circle {
+    Diameter = 15,
+    XAxis = 25,
+    YAxis = 35
+};
+
+ShiftX(myOrb, 5);
+ShiftY(myCube, 10);
+ShiftZ(myRectangle, 15);
+ShiftX(myCircle, 20);
+"""
 input_stream = InputStream(input_str)
 lexer = DSL_2D_3DLexer(input_stream)
 token_stream = CommonTokenStream(lexer)
