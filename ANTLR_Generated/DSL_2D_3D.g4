@@ -1,6 +1,6 @@
 grammar DSL_2D_3D;
 
-// Keywords
+// Keywords are prioritized by placing them before CHAR and WS
 Tetrahedron            : 'Tetrahedron' ;
 Cuboid                 : 'Cuboid' ;
 Orb                    : 'Orb' ;
@@ -25,10 +25,10 @@ SpinZ                  : 'SpinZ' ;
 MapTexture             : 'MapTexture' ;
 Adjust                 : 'Adjust' ;
 
-NUMERIC_VALUE          : [0-9]+ ;  // Numbers only
-IDENTIFIER             : [a-zA-Z] [a-zA-Z0-9]*; // Identifier must start with a letter
-CHAR                   : ~[{}\t\r\n ]+; // Exclude braces, whitespace, and control characters
-WS                     : [ \t\r\n]+ -> skip ;  // Skip whitespace
+NUMERIC_VALUE          : [0-9]+ ;
+IDENTIFIER             : [a-zA-Z][a-zA-Z0-9]* ;
+CHAR                   : ~[{}\t\r\n]+ ; // Restrict to avoid capturing keywords
+WS                     : [ \t\r\n]+ -> skip ;
 
 // Parser rules
 code_block             : action_list ;
@@ -40,9 +40,9 @@ define_variable        : 'Object' IDENTIFIER '=' construct
                         | 'Texture' IDENTIFIER '=' construct ;
 construct              : 'Generate' shape_type | 'Generate' shape_type '{' shape_property '}' | 'Build Texture' '{' 'Image' resource_url '}' ;
 shape_type             : Tetrahedron | Cuboid | Orb | Tetragon ;
-shape_property         : property_set (',' shape_property)? ;
+shape_property         : property_set (',' property_set)* ;
 property_set           : property_key '=' IDENTIFIER | property_key '=' NUMERIC_VALUE ;
-property_key           : 'X-axis' | 'Y-axis' | 'Z-axis' | 'Diameter' | 'Magnify' ;
+property_key           : X_axis | Y_axis | Z_axis | Diameter | Magnify ;
 manipulate             : 'ShiftX' '(' value ')' | 'ShiftY' '(' value ')' | 'ShiftZ' '(' value ')'
                         | 'Magnify' '(' value ')' | 'SpinX' '(' value ')' | 'SpinY' '(' value ')' | 'SpinZ' '(' value ')' ;
 value                  : IDENTIFIER | NUMERIC_VALUE; // Unifying handling of identifiers and numeric values
