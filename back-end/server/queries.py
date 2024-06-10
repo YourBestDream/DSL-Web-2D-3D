@@ -1,3 +1,7 @@
+import sys
+
+sys.path.insert(0, 'E:\programs\DSL-Web-2D-3D\ANTLR_Generated')
+
 from flask import Blueprint, request, jsonify
 from antlr4 import *
 from ANTLR_Generated.DSL_2D_3DLexer import DSL_2D_3DLexer

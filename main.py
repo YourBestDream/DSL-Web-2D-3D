@@ -1,9 +1,15 @@
 from antlr4 import *
 from ANTLR_Generated.DSL_2D_3DLexer import DSL_2D_3DLexer
 from ANTLR_Generated.DSL_2D_3DParser import DSL_2D_3DParser
-from ANTLR_Generated.DSL_2D_3DListener import DSL_2D_3DListener  # Make sure this import is correct
+# from ANTLR_Generated.DSL_2D_3DListener import DSL_2D_3DListener  # Make sure this import is correct
 
-input_str = """ 
+
+input_str = """
+myOrb = Orb {
+    Diameter = 10
+};
+"""
+input_str = """
 myOrb = Orb {
     Diameter = 10,
     XAxis = 20,
@@ -47,11 +53,11 @@ parser = DSL_2D_3DParser(token_stream)
 tree = parser.start()  # Assuming 'start' is the root rule of your grammar
 
 # Creating an instance of your listener
-listener = DSL_2D_3DListener()
+# listener = DSL_2D_3DListener()
 
 # Walking the parse tree with your listener
 walker = ParseTreeWalker()
-walker.walk(listener, tree)
+# walker.walk(listener, tree)
 
 # def print_tree(tree, parser):
 #     dot_str = tree.toStringTree(recog=parser)

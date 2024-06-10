@@ -7,13 +7,12 @@ function App() {
   const [response, setResponse] = useState(null);
 
   const handleCodeSubmit = () => {
-    axios.post('http://localhost:5000/process-code', { code: code })
+    const data = { code: code }; // Save the code in a JSON object
+    axios.post('http://localhost:5000/process-code', data)
       .then(response => {
-        // Handle the response from the server here
         setResponse(response.data);
       })
       .catch(error => {
-        // Handle any errors here
         console.error('Error processing code:', error);
       });
   };
